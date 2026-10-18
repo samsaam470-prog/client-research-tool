@@ -1,0 +1,16 @@
+{
+  "name": "client-research-tool-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrations:local": "wrangler d1 migrations apply interview-12 --local",
+    "db:migrations:remote": "wrangler d1 migrations apply interview-12 --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.20.0"
+  },
+  "engines": { "node": ">=20" }
+}

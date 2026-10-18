@@ -1,0 +1,18 @@
+name = "client-research-tool-api"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://YOUR-VERCEL-DOMAIN.vercel.app"
+SESSION_TTL_SECONDS = "28800"
+RATE_LIMIT_WINDOW_SECONDS = "60"
+PUBLIC_RATE_LIMIT = "20"
+OWNER_LOGIN_RATE_LIMIT = "8"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "interview-12"
+# REQUIRED: replace with the existing database UUID from Cloudflare before running Wrangler.
+database_id = "REPLACE_WITH_EXISTING_D1_DATABASE_ID"
+migrations_dir = "migrations"
