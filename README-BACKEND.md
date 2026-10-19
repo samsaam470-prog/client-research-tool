@@ -57,3 +57,31 @@ In Cloudflare Zero Trust Access, create application:
 5. Verify: https://interview-12-backend.<subdomain>.workers.dev/api/health
 
 No frontend generated in this phase.
+
+
+---
+
+## Review notes for the corrected backend branch
+
+The backend files are being reorganized under `src/`, configuration and migration filenames are normalized for Linux/Cloudflare tooling, and the GitHub Actions workflow now lives under `.github/workflows/`. The Worker checks Cloudflare Access JWTs for dashboard API routes and maps lowercase public work-type values to the capitalized values required by the existing D1 CHECK constraint.
+
+### Required Cloudflare Access variables
+- `ACCESS_TEAM_DOMAIN`: Access team domain, e.g. `your-team.cloudflareaccess.com`.
+- `ACCESS_AUD`: AUD tag for the Access application protecting dashboard API routes.
+
+Configure these as Worker environment variables before using the dashboard API. Do not protect `/api/public/*` with Access.
+
+### Implemented routes in this branch
+- `GET /api/health`
+- `GET /api/public/{token}`
+- `POST /api/public/{token}/submit`
+- `GET /api/interviews`
+- `POST /api/interviews`
+- `POST /api/interviews/{code}/publish`
+- `POST /api/interviews/{code}/unpublish`
+- `POST /api/interviews/{code}/duplicate`
+- `GET /api/interviews/{code}/submissions?search=...`
+- `GET /api/interviews/{code}/export?format=json|csv|txt`
+
+### Not production-complete yet
+This branch is a repair pass, not a claim that the full product is complete. Question/page editing endpoints, a detailed-submission endpoint, immutable snapshots for historical questionnaire versions, and automated integration tests remain outstanding. Do not merge/deploy until the TypeScript check and a staging migration test pass. The migration SQL is additive and does not drop existing tables or delete the existing `INT-001` row.
