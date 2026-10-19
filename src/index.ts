@@ -66,7 +66,7 @@ async function resolveInterview(env: Env, requested: string): Promise<InterviewR
 }
 async function getVersionQuestions(env: Env, versionId: number): Promise<any[]> {
   const rows = await env.DB.prepare(
-    "SELECT question_code AS code, question_text AS text, question_type AS type, branch, display_order, is_required, options_json, page_number FROM version_questions WHERE version_id=? ORDER BY page_number, display_order"
+    "SELECT id, question_code AS code, question_text AS text, question_type AS type, branch, display_order, is_required, options_json, page_number FROM version_questions WHERE version_id=? ORDER BY page_number, display_order"
   ).bind(versionId).all<any>();
   return (rows.results ?? []).map(q => ({...q, options:safeJson(q.options_json), required:Boolean(q.is_required)}));
 }
@@ -223,7 +223,8 @@ async function dashboard(request:Request,env:Env,path:string,url:URL):Promise<Re
   if (sub==="publish"&&request.method==="POST") {
     const current=await getCurrentVersion(env,q.id);
     if (!current) return response({error:"No questionnaire version exists"},409);
-    await createSnapshot(env,q.id,current.id);
+    const snapshotCount=await env.DB.prepare("SELECT COUNT(*) AS n FROM version_questions WHERE version_id=?").bind(current.id).first<{n:number}>();
+    if (!snapshotCount || snapshotCount.n===0) await createSnapshot(env,q.id,current.id);
     await env.DB.prepare("UPDATE questionnaire_versions SET is_published=1 WHERE id=?").bind(current.id).run();
     await env.DB.prepare("UPDATE publish_state SET is_published=1,public_link_enabled=1,updated_at=CURRENT_TIMESTAMP WHERE questionnaire_id=?").bind(q.id).run();
     await env.DB.prepare("UPDATE questionnaires SET is_active=1 WHERE id=?").bind(q.id).run();
