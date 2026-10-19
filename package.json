@@ -1,0 +1,19 @@
+{
+  "name": "interview-12-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "typecheck": "tsc --noEmit",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20261001.1",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.40.0"
+  }
+}
