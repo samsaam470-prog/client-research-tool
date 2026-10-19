@@ -1,0 +1,15 @@
+name = "interview-12-backend"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "interview-12"
+database_id = "e35c44e8-42b7-4b14-ad4a-d6fb6aa67a72"
+migrations_dir = "migrations"
+
+[vars]
+ENVIRONMENT = "production"
+
+[observability]
+enabled = true
