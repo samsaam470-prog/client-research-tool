@@ -1,0 +1,16 @@
+name = "interview-12-backend"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "interview-12"
+database_id = "e35c44e8-42b7-4b14-ad4a-d6fb6aa67a72"
+
+[vars]
+ENVIRONMENT = "production"
+TOKEN_BYTES = "16"
+
+[observability]
+enabled = true

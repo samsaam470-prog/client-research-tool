@@ -1,0 +1,16 @@
+{
+  "name": "interview-12-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 execute interview-12 --local --file=./migrations/0001_create_public_tokens_and_pages.sql",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0",
+    "typescript": "^5.5.0",
+    "@cloudflare/workers-types": "^4.20241127.0"
+  }
+}
