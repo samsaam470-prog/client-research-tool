@@ -57,6 +57,7 @@ jobs:
           npx wrangler d1 execute interview-12 --remote --file=migrations/0002_create_versions_and_publish_state.sql
           npx wrangler d1 execute interview-12 --remote --file=migrations/0003_seed_existing_questionnaire_state.sql
           npx wrangler d1 execute interview-12 --remote --file=migrations/0004_immutable_version_questions.sql
+          npx wrangler d1 execute interview-12 --remote --file=migrations/0005_question_lifecycle.sql
       - name: Deploy Worker after migrations succeed
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
